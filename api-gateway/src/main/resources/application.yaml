@@ -1,0 +1,38 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: student-server
+          uri: http://localhost:8020
+          predicates:
+            - Path=/students/**
+
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/iit
+          jwk-set-uri: ${spring.security.oauth2.resource-server.jwt.issuer-uri}/protocol/openid-connect/certs
+        opaque-token:
+          client-id: iit-delhi
+          scope: openid
+          client-secret: P5QheuLDTzUwglVDqvV3SFeZKEWmYrQB
+          authorization-grant-type: authorization_code
+          introspection-uri: http://localhost:8180/auth/realms/iit/protocol/openid-connect/token/introspect
+
+server:
+  port: 9090
+
+keycloak:
+  url-login: http://localhost:8180/auth/realms/iit/protocol/openid-connect/token
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web: DEBUG
+
+definition:
+  path:
+    postLogout: '/students/1'
