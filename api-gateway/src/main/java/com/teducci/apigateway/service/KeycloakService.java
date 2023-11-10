@@ -18,13 +18,13 @@ public class KeycloakService {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${keycloak.url-login}")
+    @Value("${spring.security.oauth2.resource-server.jwt.issuer-uri}/protocol/openid-connect/token")
     private String urlUserLogin;
 
-    @Value("${spring.security.oauth2.resource-server.opaque-token.client-id}")
+    @Value("${spring.security.oauth2.resource-server.jwt.client-id}")
     private String clientId;
 
-    @Value("${spring.security.oauth2.resource-server.opaque-token.client-secret}")
+    @Value("${spring.security.oauth2.resource-server.jwt.client-secret}")
     private String clientSecret;
 
     public Object userLogin(String username, String password) {
